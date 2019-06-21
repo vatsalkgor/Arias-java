@@ -60,17 +60,35 @@ public class DB {
         }
     }
 
-    protected boolean removeDA(String m, int y, float r) {
+    protected float getDA(String month, int year) {
+        String sql = "select rate from da where month=? and year=?";
+        try {
+            PreparedStatement s = con.prepareStatement(sql);
+            s.setString(1, month);
+            s.setInt(2, year);
+            ResultSet r = s.executeQuery();
+            if(r.next()){
+                return r.getFloat("rate");
+            }else{
+                return -1;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    protected int removeDA(String m, int y, float r) {
         String sql = "delete from da where month=? and year=? and rate=?";
         try {
             PreparedStatement s = con.prepareStatement(sql);
             s.setString(1, m);
             s.setInt(2, y);
             s.setFloat(3, r);
-            return s.execute();
+            return s.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 
@@ -89,12 +107,12 @@ public class DB {
         }
     }
 
-    protected int addPM(int level, long pay) {
+    protected int addPM(String level, String pay) {
         String sql = "insert into pm(level,pay) VALUES(?,?)";
         try {
             PreparedStatement s = con.prepareStatement(sql);
-            s.setInt(1, level);
-            s.setLong(2, pay);
+            s.setString(1, level);
+            s.setString(2, pay);
             return s.executeUpdate();
         } catch (SQLiteException e) {
             System.out.println(e);
@@ -105,19 +123,19 @@ public class DB {
             return 0;
         }
     }
-    
-    protected boolean removePM(int level) {
+
+    protected int removePM(String level) {
         String sql = "delete from pm where level=?";
         try {
             PreparedStatement s = con.prepareStatement(sql);
-            s.setInt(1, level);
-            return s.execute();
+            s.setString(1, level);
+            return s.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
-    
+
     protected ResultSet getPM() {
         try {
             Statement stmt = con.createStatement();
@@ -128,20 +146,33 @@ public class DB {
         }
     }
     
-    protected int updatePM(int level, long pay){
+    protected String getPM(String level){
+        try {
+            String sql = "select pay from pm where level=?";
+            PreparedStatement s = con.prepareStatement(sql);
+            s.setString(1, level);
+            ResultSet r = s.executeQuery();
+            return r.getString("pay");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    protected int updatePM(String level, String pay) {
         String sql = "update pm set pay=? where level=?";
         try {
             PreparedStatement s = con.prepareStatement(sql);
-            s.setLong(1, pay);
-            s.setInt(2, level);
+            s.setString(1, pay);
+            s.setString(2, level);
             return s.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
     }
-    
-    protected int setHRA(float f){
+
+    protected int setHRA(float f) {
         String sql = "update hra set rate=? where id=1";
         try {
             PreparedStatement s = con.prepareStatement(sql);
@@ -150,6 +181,81 @@ public class DB {
         } catch (Exception e) {
             System.out.println(e);
             return 0;
+        }
+    }
+
+    protected float getHRA() {
+        try {
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("select * from hra");
+            if (rs.next()) {
+                return rs.getFloat("rate");
+            }
+            return 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    protected int addGP(String level, String rate) {
+        String sql = "insert into gp(level,rate) VALUES(?,?)";
+        try {
+            PreparedStatement s = con.prepareStatement(sql);
+            s.setString(1, level);
+            s.setString(2, rate);
+            return s.executeUpdate();
+        } catch (SQLiteException e) {
+            System.out.println(e);
+            e.printStackTrace();
+            return -1;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    protected int updateGP(String level, String rate) {
+        String sql = "update gp set rate=? where level=?";
+        try {
+            PreparedStatement s = con.prepareStatement(sql);
+            s.setString(1, rate);
+            s.setString(2, level);
+            return s.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    protected int removeGP(String level) {
+        String sql = "delete from gp where level=?";
+        try {
+            PreparedStatement s = con.prepareStatement(sql);
+            s.setString(1, level);
+            return s.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    protected ResultSet getGP() {
+        try {
+            Statement stmt = con.createStatement();
+            return stmt.executeQuery("select * from gp");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    protected String getGP(String level){
+        try {
+            Statement s = con.createStatement();
+            ResultSet r = s.executeQuery("select rate from gp where level="+level);
+            return r.getString("rate");
+        } catch (Exception e) {
+            return null;
         }
     }
 
