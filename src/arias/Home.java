@@ -5,6 +5,7 @@
  */
 package arias;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -137,9 +138,9 @@ public class Home extends javax.swing.JFrame {
 //        }
 //        return null;
 //    }
-    private String calculateHRA(long basic) {
-        float r = db.getHRA();
-        return String.valueOf((int) (r * basic) / 100);
+    private String calculateHRA(long basic, int year) {
+        float r = db.getHRA(year);
+        return String.valueOf(Math.round((r * basic) / 100));
     }
 
     private void gp_table_refresh() {
@@ -262,10 +263,16 @@ public class Home extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         pgp = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        hratbp = new javax.swing.JTextField();
+        basic2015 = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
-        hrap = new javax.swing.JTextField();
+        gp2015 = new javax.swing.JTextField();
         showhra = new javax.swing.JCheckBox();
+        increment = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        paidbasic2015 = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        paidgp2015 = new javax.swing.JTextField();
+        reset = new javax.swing.JButton();
         da_panel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -317,6 +324,7 @@ public class Home extends javax.swing.JFrame {
         da = new javax.swing.JMenuItem();
         paymatrix = new javax.swing.JMenuItem();
         set_hra = new javax.swing.JMenuItem();
+        set_hra1 = new javax.swing.JMenuItem();
         gradepay = new javax.swing.JMenuItem();
 
         da_delete.setText("jMenuItem1");
@@ -432,13 +440,35 @@ public class Home extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setText("HRA to be Paid");
+        jLabel32.setText("2015 To be Basic");
 
         jLabel33.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("HRA Paid");
+        jLabel33.setText("2015 to be GP");
 
         showhra.setText("Show HRA?");
+
+        increment.setText("Jul 2016");
+        increment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incrementActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("2015 Paid Basic");
+
+        jLabel35.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("2015 Paid GP");
+
+        reset.setText("Reset");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dashboardLayout = new javax.swing.GroupLayout(dashboard);
         dashboard.setLayout(dashboardLayout);
@@ -446,80 +476,87 @@ public class Home extends javax.swing.JFrame {
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eName)
-                            .addComponent(sName)))
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(designation))
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(level, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dashboardLayout.createSequentialGroup()
-                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(dashboardLayout.createSequentialGroup()
-                                .addComponent(fday, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fmonth, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fyear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(dashboardLayout.createSequentialGroup()
-                                .addComponent(tday, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tmonth, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tyear, 0, 122, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(dashboardLayout.createSequentialGroup()
                                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tratbp, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tbpb, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tbpgp, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(hratbp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(eName)
+                                    .addComponent(sName)))
+                            .addGroup(dashboardLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(trap, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                    .addComponent(hrap)
-                                    .addComponent(pb)
-                                    .addComponent(pgp)))))
+                                .addComponent(designation))
+                            .addGroup(dashboardLayout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(dashboardLayout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(level, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dashboardLayout.createSequentialGroup()
+                                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(dashboardLayout.createSequentialGroup()
+                                        .addComponent(fday, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fmonth, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fyear, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(dashboardLayout.createSequentialGroup()
+                                        .addComponent(tday, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tmonth, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tyear, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(dashboardLayout.createSequentialGroup()
+                                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(tratbp, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tbpb, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tbpgp, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(basic2015, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                                            .addComponent(paidbasic2015, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(increment, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                            .addComponent(trap, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                            .addComponent(gp2015)
+                                            .addComponent(pb)
+                                            .addComponent(pgp)
+                                            .addComponent(paidgp2015)))))
+                            .addGroup(dashboardLayout.createSequentialGroup()
+                                .addComponent(hra)
+                                .addGap(18, 18, 18)
+                                .addComponent(showhra))))
                     .addGroup(dashboardLayout.createSequentialGroup()
-                        .addComponent(hra)
-                        .addGap(27, 27, 27)
-                        .addComponent(showhra)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(generateTable)
-                .addGap(349, 349, 349))
+                        .addGap(308, 308, 308)
+                        .addComponent(generateTable)
+                        .addGap(18, 18, 18)
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         dashboardLayout.setVerticalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,7 +570,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(fday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fmonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fyear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(eName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,7 +578,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(tday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tmonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tyear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(designation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -566,23 +603,32 @@ public class Home extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel32)
-                            .addComponent(hratbp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(basic2015, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel33)
-                            .addComponent(hrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(gp2015, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(dashboardLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel5)))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(hra)
-                        .addComponent(showhra)))
-                .addGap(67, 67, 67)
-                .addComponent(generateTable)
-                .addContainerGap(119, Short.MAX_VALUE))
+                        .addComponent(jLabel34)
+                        .addComponent(paidbasic2015, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel35)
+                        .addComponent(paidgp2015, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hra)
+                    .addComponent(showhra)
+                    .addComponent(increment))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generateTable)
+                    .addComponent(reset))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         main.add(dashboard, "card2");
@@ -812,7 +858,7 @@ public class Home extends javax.swing.JFrame {
         pm_panel.setLayout(pm_panelLayout);
         pm_panelLayout.setHorizontalGroup(
             pm_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
             .addGroup(pm_panelLayout.createSequentialGroup()
                 .addGroup(pm_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pm_panelLayout.createSequentialGroup()
@@ -889,7 +935,7 @@ public class Home extends javax.swing.JFrame {
         table.setLayout(tableLayout);
         tableLayout.setHorizontalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
         );
         tableLayout.setVerticalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -965,7 +1011,7 @@ public class Home extends javax.swing.JFrame {
         gp.setLayout(gpLayout);
         gpLayout.setHorizontalGroup(
             gpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gpLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(gpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1065,13 +1111,21 @@ public class Home extends javax.swing.JFrame {
         });
         settings.add(paymatrix);
 
-        set_hra.setText("HRA");
+        set_hra.setText("HRA 2006");
         set_hra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 set_hraActionPerformed(evt);
             }
         });
         settings.add(set_hra);
+
+        set_hra1.setText("HRA 2016");
+        set_hra1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                set_hra1ActionPerformed(evt);
+            }
+        });
+        settings.add(set_hra1);
 
         gradepay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         gradepay.setText("Grade Pay");
@@ -1135,7 +1189,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_daActionPerformed
 
     private void set_hraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_set_hraActionPerformed
-        float hra = db.getHRA();
+        float hra = db.getHRA(2006);
         String hra_per = JOptionPane.showInputDialog(null, "Enter HRA percentage. Current rate is " + hra + ".");
         if (hra_per != null && hra_per != "") {
             if (db.setHRA(Float.parseFloat(hra_per)) == 1) {
@@ -1345,6 +1399,8 @@ public class Home extends javax.swing.JFrame {
 
     private void tyearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyearActionPerformed
         if (Integer.parseInt(tyear.getSelectedItem().toString()) > 2015) {
+            tbpgp.setText("");
+            pgp.setText("");
             tbpgp.setEnabled(false);
             pgp.setEnabled(false);
         } else {
@@ -1365,6 +1421,8 @@ public class Home extends javax.swing.JFrame {
         long p_basic = Long.parseLong(pb.getText());
         long n_tbp_basic = tbp_basic;
         long n_p_basic = p_basic;
+        String tbphra = null;
+        String phra = null;
 
 //        DefaultTableModel t = (DefaultTableModel) tt.getModel();
         List<Detail> detail_array = new ArrayList<>();
@@ -1383,10 +1441,12 @@ public class Home extends javax.swing.JFrame {
             System.out.println(db.getPM(level.getSelectedItem().toString()));
             h.setPay(db.getPM(level.getSelectedItem().toString()));
         }
+        boolean increment = true;
 
         for (int year = Integer.parseInt(fy); year <= Integer.parseInt(ty); year++) {
-            System.out.println(year);
+            System.out.println("year " + year);
             for (int month = 1; month < 13; month++) {
+                System.out.println("month" + month);
                 String tbpda;
                 String pda;
                 float month_da_rate;
@@ -1396,8 +1456,8 @@ public class Home extends javax.swing.JFrame {
                     }
                     if (!"1".equals(fd) && month == month_map.get(fm) && year == Integer.parseInt(fy)) {
 //                        basic calculation for days
-                        long t_tbp_basic = (Math.round(tbp_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
-                        long t_p_basic = (Math.round(p_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
+                        long t_tbp_basic = Math.round((tbp_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
+                        long t_p_basic = Math.round((p_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
                         if (month == month_map.get(tm) + 1 && year == Integer.parseInt(ty)) {
                             break;
                         }
@@ -1423,16 +1483,22 @@ public class Home extends javax.swing.JFrame {
                             }
                         }
 
-                        tbpda = String.valueOf((int) (t_tbp_basic * safe_da_rate) / 100);
-                        pda = String.valueOf((int) (t_p_basic * safe_da_rate) / 100);
-                        String tbphra;
-                        String phra;
+                        tbpda = String.valueOf(Math.round((t_tbp_basic * safe_da_rate) / 100));
+                        pda = String.valueOf(Math.round((t_p_basic * safe_da_rate) / 100));
+
                         if (hra.isSelected()) {
-                            tbphra = calculateHRA(t_tbp_basic);
-                            phra = calculateHRA(t_p_basic);
+                            System.out.println("in if");
+                            tbphra = calculateHRA(t_tbp_basic, 2016);
+                            phra = calculateHRA(t_p_basic, 2016);
                         } else {
-                            tbphra = hratbp.getText();
-                            phra = hrap.getText();
+                            System.out.println("in first else");
+                            float perdaytbpbasic = Integer.valueOf(basic2015.getText()) / month_day.get(month);
+                            float perdaytbpgp = Integer.valueOf(gp2015.getText()) / month_day.get(month);
+                            float perdaypbasic = Integer.valueOf(paidbasic2015.getText()) / month_day.get(month);
+                            float perdaypgp = Integer.valueOf(paidgp2015.getText()) / month_day.get(month);
+
+                            tbphra = calculateHRA(Long.valueOf(String.valueOf((perdaytbpbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaytbpgp * (month_day.get(month) - Integer.valueOf(fd) + 1)))), 2006);
+                            phra = calculateHRA(Long.valueOf(String.valueOf((perdaypbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaypgp * (month_day.get(month) - Integer.valueOf(fd) + 1)))), 2006);
                         }
                         Detail e = new Detail();
                         e.setPeriod(fd + "-" + map_month.get(month) + "-" + String.valueOf(year).substring(2));
@@ -1457,11 +1523,11 @@ public class Home extends javax.swing.JFrame {
                         if (month == month_map.get(tm) + 1 && year == Integer.parseInt(ty)) {
                             break;
                         }
-
-                        if (month == 7) {
-                            n_tbp_basic = ((((tbp_basic * 3) / 100 + tbp_basic) + 99) / 100) * 100;
+                        increment = !(month_map.get(fm) == 7 && year == Integer.parseInt(fy));
+                        if (month == 7 && increment) {
+                            n_tbp_basic = Math.round(((float) ((tbp_basic * 3) / 100) + tbp_basic) / 100) * 100;
                             tbp_basic = n_tbp_basic;
-                            n_p_basic = ((((p_basic * 3) / 100 + p_basic) + 99) / 100) * 100;
+                            n_p_basic = Math.round((float) ((p_basic * 3) / 100 + p_basic) / 100) * 100;
                             p_basic = n_p_basic;
                         }
 
@@ -1486,16 +1552,36 @@ public class Home extends javax.swing.JFrame {
                             }
                         }
 
-                        tbpda = String.valueOf((int) (n_tbp_basic * safe_da_rate) / 100);
-                        pda = String.valueOf((int) (n_p_basic * safe_da_rate) / 100);
-                        String tbphra;
-                        String phra;
+                        tbpda = String.valueOf(Math.round((n_tbp_basic * safe_da_rate) / 100));
+                        pda = String.valueOf(Math.round((n_p_basic * safe_da_rate) / 100));
+
                         if (hra.isSelected()) {
-                            tbphra = calculateHRA(n_tbp_basic);
-                            phra = calculateHRA(n_p_basic);
+                            tbphra = calculateHRA(n_tbp_basic, 2016);
+                            phra = calculateHRA(n_p_basic, 2016);
                         } else {
-                            tbphra = hratbp.getText();
-                            phra = hrap.getText();
+                            if (tbphra == null && phra == null) {
+                                int basicIn2015 = Integer.parseInt(basic2015.getText());
+                                int gpIn2015 = Integer.parseInt(gp2015.getText());
+                                int paidBasicIn2015 = Integer.parseInt(paidbasic2015.getText());
+                                int paidGpIn2015 = Integer.parseInt(paidgp2015.getText());
+                                tbphra = calculateHRA(Long.valueOf(basicIn2015 + gpIn2015), 2006);
+                                phra = calculateHRA(Long.valueOf(paidBasicIn2015 + paidGpIn2015), 2006);
+                            }
+                        }
+                        if (month == 7 && !hra.isSelected()) {
+                            int basicIn2015 = Integer.parseInt(basic2015.getText());
+                            int gpIn2015 = Integer.parseInt(gp2015.getText());
+                            int paidBasicIn2015 = Integer.parseInt(paidbasic2015.getText());
+                            int paidGpIn2015 = Integer.parseInt(paidgp2015.getText());
+
+                            String newtbphra = String.valueOf((Math.round(((float) (((basicIn2015 + gpIn2015) * 3) / 100) / 10)) * 10) + basicIn2015);
+                            String newphra = String.valueOf((Math.round(((float) (((paidBasicIn2015 + paidGpIn2015) * 3) / 100) / 10)) * 10) + paidBasicIn2015);
+
+                            tbphra = calculateHRA(Integer.parseInt(newtbphra) + Integer.parseInt(gp2015.getText()), 2006);
+                            phra = calculateHRA(Integer.parseInt(newphra) + Integer.parseInt(paidgp2015.getText()), 2006);
+
+                            basic2015.setText(newtbphra);
+                            paidbasic2015.setText(newphra);
                         }
 
                         Detail e = new Detail();
@@ -1526,8 +1612,8 @@ public class Home extends javax.swing.JFrame {
                     }
                     if (!"1".equals(fd) && month == month_map.get(fm) && year == Integer.parseInt(fy)) {
 //                        basic calculation for days
-                        long t_tbp_basic = Math.round(tbp_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd));
-                        long t_p_basic = Math.round(p_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) - 1);
+                        long t_tbp_basic = Math.round((tbp_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
+                        long t_p_basic = Math.round((p_basic / (float) month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
                         if (month == month_map.get(tm) + 1 && year == Integer.parseInt(ty)) {
                             break;
                         }
@@ -1554,33 +1640,33 @@ public class Home extends javax.swing.JFrame {
                         }
                         String p_gp = pgp.getText();
                         String tbp_gp = tbpgp.getText();
-                        tbpda = String.valueOf((int) ((t_tbp_basic + Integer.valueOf(tbp_gp)) * safe_da_rate) / 100);
-                        pda = String.valueOf((int) ((t_p_basic + Integer.valueOf(p_gp)) * safe_da_rate) / 100);
-                        String tbphra;
-                        String phra;
+                        String t_tbp_gp = String.valueOf(Math.round(Integer.parseInt(tbp_gp) / month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
+                        String t_p_gp = String.valueOf(Math.round(Integer.parseInt(p_gp) / month_day.get(month)) * (month_day.get(month) - Integer.valueOf(fd) + 1));
+                        tbpda = String.valueOf(Math.round(((t_tbp_basic + Integer.valueOf(t_tbp_gp)) * safe_da_rate) / 100));
+                        pda = String.valueOf(Math.round(((t_p_basic + Integer.valueOf(t_p_gp)) * safe_da_rate) / 100));
 
                         if (hra.isSelected()) {
-                            tbphra = calculateHRA(t_tbp_basic + Integer.valueOf(tbp_gp));
-                            phra = calculateHRA(t_p_basic + Integer.valueOf(tbp_gp));
+                            tbphra = calculateHRA(t_tbp_basic + Integer.valueOf(t_tbp_gp), 2006);
+                            phra = calculateHRA(t_p_basic + Integer.valueOf(t_p_gp), 2006);
                         } else {
-                            tbphra = hratbp.getText();
-                            phra = hrap.getText();
+                            JOptionPane.showMessageDialog(null, "select calculate hra check box for calculation of hra as year is < 2016");
+                            break;
                         }
 
                         Detail e = new Detail();
                         e.setPeriod(fd + "-" + map_month.get(month) + "-" + String.valueOf(year).substring(2));
                         e.setTbp_basic((int) t_tbp_basic);
                         e.setTbp_da(Integer.parseInt(tbpda));
-                        e.setTbp_gp(Integer.parseInt(tbpgp.getText()));
+                        e.setTbp_gp(Integer.parseInt(t_tbp_gp));
                         e.setTbp_hra(Integer.parseInt(tbphra));
                         e.setTbp_tra(Integer.parseInt(tratbp.getText()));
-                        e.setTbp_total((int) t_tbp_basic + Integer.parseInt(tbpda) + Integer.parseInt(tbphra) + Integer.parseInt(tratbp.getText()));
+                        e.setTbp_total((int) t_tbp_basic + Integer.valueOf(t_tbp_gp) + Integer.parseInt(tbpda) + Integer.parseInt(tbphra) + Integer.parseInt(tratbp.getText()));
                         e.setP_basic((int) t_p_basic);
                         e.setP_da(Integer.parseInt(pda));
-                        e.setP_gp(Integer.parseInt(pgp.getText()));
+                        e.setP_gp(Integer.parseInt(t_p_gp));
                         e.setP_hra(Integer.parseInt(phra));
                         e.setP_tra(Integer.parseInt(trap.getText()));
-                        e.setP_total((int) t_p_basic + Integer.parseInt(pda) + Integer.parseInt(phra) + Integer.parseInt(trap.getText()));
+                        e.setP_total((int) t_p_basic + Integer.valueOf(t_p_gp) + Integer.parseInt(pda) + Integer.parseInt(phra) + Integer.parseInt(trap.getText()));
                         e.setD_basic(e.getTbp_basic() - e.getP_basic());
                         e.setD_da(e.getTbp_da() - e.getP_da());
                         e.setD_gp(e.getTbp_gp() - e.getP_gp());
@@ -1593,11 +1679,18 @@ public class Home extends javax.swing.JFrame {
                         if (month == month_map.get(tm) + 1 && year == Integer.parseInt(ty)) {
                             break;
                         }
-
-                        if (month == 7) {
-                            n_tbp_basic = ((((tbp_basic * 3) / 100 + tbp_basic) + 9) / 10) * 10;
+                        if (year == 2015 && month == 10 && year != Integer.parseInt(fy)) {
+                            tratbp.setText(String.valueOf(Integer.parseInt(tratbp.getText()) * 2));
+                            trap.setText(String.valueOf(Integer.parseInt(trap.getText()) * 2));
+                            System.out.println("in if");
+                        }
+                        String p_gp = pgp.getText();
+                        String tbp_gp = tbpgp.getText();
+                        increment = !(month_map.get(fm) == 7 && year == Integer.parseInt(fy));
+                        if (month == 7 && increment) {
+                            n_tbp_basic = (long) Math.ceil((((float) ((tbp_basic + Integer.valueOf(tbp_gp)) * 3) / 100) + tbp_basic) / 10) * 10;
                             tbp_basic = n_tbp_basic;
-                            n_p_basic = ((((p_basic * 3) / 100 + p_basic) + 9) / 10) * 10;
+                            n_p_basic = (long) Math.ceil((((float) ((p_basic + Integer.valueOf(p_gp)) * 3) / 100) + p_basic) / 10) * 10;
                             p_basic = n_p_basic;
                         }
 
@@ -1621,18 +1714,15 @@ public class Home extends javax.swing.JFrame {
                                 System.out.println("catch");
                             }
                         }
-                        String p_gp = pgp.getText();
-                        String tbp_gp = tbpgp.getText();
-                        tbpda = String.valueOf((int) ((n_tbp_basic + Integer.valueOf(tbp_gp)) * safe_da_rate) / 100);
-                        pda = String.valueOf((int) ((n_p_basic + Integer.valueOf(p_gp)) * safe_da_rate) / 100);
-                        String tbphra;
-                        String phra;
+
+                        tbpda = String.valueOf(Math.round(((n_tbp_basic + Integer.valueOf(tbp_gp)) * safe_da_rate) / 100));
+                        pda = String.valueOf(Math.round(((n_p_basic + Integer.valueOf(p_gp)) * safe_da_rate) / 100));
                         if (hra.isSelected()) {
-                            tbphra = calculateHRA(n_tbp_basic + Integer.valueOf(tbp_gp));
-                            phra = calculateHRA(n_p_basic + Integer.valueOf(p_gp));
+                            tbphra = calculateHRA(n_tbp_basic + Integer.valueOf(tbp_gp), 2006);
+                            phra = calculateHRA(n_p_basic + Integer.valueOf(p_gp), 2006);
                         } else {
-                            tbphra = hratbp.getText();
-                            phra = hrap.getText();
+                            JOptionPane.showMessageDialog(null, "select calculate hra check box for calculation of hra as year is < 2016");
+                            break;
                         }
 
                         Detail e = new Detail();
@@ -1642,13 +1732,13 @@ public class Home extends javax.swing.JFrame {
                         e.setTbp_gp(Integer.parseInt(tbpgp.getText()));
                         e.setTbp_hra(Integer.valueOf(tbphra));
                         e.setTbp_tra(Integer.parseInt(tratbp.getText()));
-                        e.setTbp_total((int) n_tbp_basic + Integer.parseInt(tbpda) + Integer.parseInt(tbphra) + Integer.parseInt(tratbp.getText()));
+                        e.setTbp_total((int) n_tbp_basic + Integer.valueOf(tbpgp.getText()) + Integer.parseInt(tbpda) + Integer.parseInt(tbphra) + Integer.parseInt(tratbp.getText()));
                         e.setP_basic((int) n_p_basic);
                         e.setP_da(Integer.parseInt(pda));
                         e.setP_gp(Integer.parseInt(pgp.getText()));
                         e.setP_hra(Integer.parseInt(phra));
                         e.setP_tra(Integer.parseInt(trap.getText()));
-                        e.setP_total((int) n_p_basic + Integer.parseInt(pda) + Integer.parseInt(phra) + Integer.parseInt(trap.getText()));
+                        e.setP_total((int) n_p_basic + Integer.valueOf(pgp.getText()) + Integer.parseInt(pda) + Integer.parseInt(phra) + Integer.parseInt(trap.getText()));
                         e.setD_basic(e.getTbp_basic() - e.getP_basic());
                         e.setD_da(e.getTbp_da() - e.getP_da());
                         e.setD_gp(e.getTbp_gp() - e.getP_gp());
@@ -1662,7 +1752,7 @@ public class Home extends javax.swing.JFrame {
             }
         }
 //        detail_array.forEach((d) -> {
-//            t.addRow(new Object[]{d.getPeriod(), d.getTbp_basic(), d.getTbp_da(), d.getTbp_hra(), d.getTbp_tra(), d.getTbp_total()});
+//            t.addRow(new Object[]{d.getPeriod(), d.getP_basic(), d.getTbp_gp(), d.getTbp_da(), d.getTbp_hra(), d.getTbp_tra()});
 //        });
         try {
             InputStream is;
@@ -1699,17 +1789,68 @@ public class Home extends javax.swing.JFrame {
 //        main.add(table);
 //        main.repaint();
 //        main.revalidate();
+        JOptionPane.showMessageDialog(null, "Successfully generated Arrears for Mr. " + eName.getText());
     }//GEN-LAST:event_generateTableActionPerformed
 
     private void hraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hraActionPerformed
         if (hra.isSelected()) {
-            hratbp.setEnabled(false);
-            hrap.setEnabled(false);
+            basic2015.setText("");
+            gp2015.setText("");
+            paidgp2015.setText("");
+            paidbasic2015.setText("");
+            basic2015.setEnabled(false);
+            gp2015.setEnabled(false);
+            paidgp2015.setEnabled(false);
+            paidbasic2015.setEnabled(false);
+            increment.setEnabled(false);
         } else {
-            hratbp.setEnabled(true);
-            hrap.setEnabled(true);
+            basic2015.setEnabled(true);
+            gp2015.setEnabled(true);
+            paidbasic2015.setEnabled(true);
+            paidgp2015.setEnabled(true);
+            increment.setEnabled(true);
         }
     }//GEN-LAST:event_hraActionPerformed
+
+    private void set_hra1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_set_hra1ActionPerformed
+        float hra = db.getHRA(2016);
+        String hra_per = JOptionPane.showInputDialog(null, "Enter HRA percentage. Current rate is " + hra + ".");
+        if (hra_per != null && !"".equals(hra_per)) {
+            if (db.setHRA(Float.parseFloat(hra_per)) == 1) {
+                JOptionPane.showMessageDialog(null, "HRA Updated.");
+            }
+        }
+    }//GEN-LAST:event_set_hra1ActionPerformed
+
+    private void incrementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementActionPerformed
+        basic2015.setText(String.valueOf(((Math.round((((Integer.parseInt(basic2015.getText()) + Integer.parseInt(gp2015.getText())) * 3) / 100) + Integer.parseInt(basic2015.getText()))) / 10) * 10));
+        paidbasic2015.setText(String.valueOf(((Math.round((((Integer.parseInt(paidbasic2015.getText()) + Integer.parseInt(paidgp2015.getText())) * 3) / 100) + Integer.parseInt(paidbasic2015.getText()))) / 10) * 10));
+        increment.setText("Jul 20" + String.valueOf(Integer.parseInt(increment.getText().substring(6)) + 1));
+    }//GEN-LAST:event_incrementActionPerformed
+
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        sName.setText("");
+        eName.setText("");
+        designation.setText("");
+        detailLine.setText("");
+        level.setSelectedIndex(0);
+        fday.setSelectedIndex(0);
+        tday.setSelectedIndex(0);
+        fmonth.setSelectedIndex(0);
+        tmonth.setSelectedIndex(0);
+        fyear.setSelectedIndex(0);
+        tyear.setSelectedIndex(0);
+        tbpb.setText("");
+        pb.setText("");
+        tbpgp.setText("");
+        tratbp.setText("");
+        trap.setText("");
+        basic2015.setText("");
+        gp2015.setText("");
+        paidgp2015.setText("");
+        paidbasic2015.setText("");
+        basic2015.setText("");
+    }//GEN-LAST:event_resetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1747,6 +1888,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField basic2015;
     private javax.swing.JMenuItem da;
     private javax.swing.JButton da_add;
     private javax.swing.JMenuItem da_delete;
@@ -1766,6 +1908,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fyear;
     private javax.swing.JButton generateTable;
     private javax.swing.JPanel gp;
+    private javax.swing.JTextField gp2015;
     private javax.swing.JButton gp_add;
     private javax.swing.JMenuItem gp_delete;
     private javax.swing.JButton gp_edit;
@@ -1775,8 +1918,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem gradepay;
     private javax.swing.JMenuItem home;
     private javax.swing.JCheckBox hra;
-    private javax.swing.JTextField hrap;
-    private javax.swing.JTextField hratbp;
+    private javax.swing.JButton increment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1804,6 +1946,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1821,6 +1965,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> level;
     private javax.swing.JPanel main;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JTextField paidbasic2015;
+    private javax.swing.JTextField paidgp2015;
     private javax.swing.JMenuItem paymatrix;
     private javax.swing.JTextField pb;
     private javax.swing.JTextField pgp;
@@ -1831,8 +1977,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel pm_panel;
     private javax.swing.JTextField pm_pay;
     private javax.swing.JTable pm_table;
+    private javax.swing.JButton reset;
     private javax.swing.JTextField sName;
     private javax.swing.JMenuItem set_hra;
+    private javax.swing.JMenuItem set_hra1;
     private javax.swing.JMenu settings;
     private javax.swing.JCheckBox showhra;
     private javax.swing.JPanel table;
