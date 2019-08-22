@@ -1496,9 +1496,12 @@ public class Home extends javax.swing.JFrame {
                             float perdaytbpgp = Integer.valueOf(gp2015.getText()) / month_day.get(month);
                             float perdaypbasic = Integer.valueOf(paidbasic2015.getText()) / month_day.get(month);
                             float perdaypgp = Integer.valueOf(paidgp2015.getText()) / month_day.get(month);
-
-                            tbphra = calculateHRA(Long.valueOf(String.valueOf((perdaytbpbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaytbpgp * (month_day.get(month) - Integer.valueOf(fd) + 1)))), 2006);
-                            phra = calculateHRA(Long.valueOf(String.valueOf((perdaypbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaypgp * (month_day.get(month) - Integer.valueOf(fd) + 1)))), 2006);
+                            
+//                            System.out.println(Long.valueOf(String.valueOf((perdaytbpbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaytbpgp * (month_day.get(month) - Integer.valueOf(fd) + 1)))));
+                            System.out.println(perdaytbpgp);
+                            
+                            tbphra = calculateHRA(Long.valueOf(String.valueOf(Math.round((perdaytbpbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaytbpgp * (month_day.get(month) - Integer.valueOf(fd) + 1))))), 2006);
+                            phra = calculateHRA(Long.valueOf(String.valueOf(Math.round((perdaypbasic * (month_day.get(month) - Integer.valueOf(fd) + 1)) + (perdaypgp * (month_day.get(month) - Integer.valueOf(fd) + 1))))), 2006);
                         }
                         Detail e = new Detail();
                         e.setPeriod(fd + "-" + map_month.get(month) + "-" + String.valueOf(year).substring(2));

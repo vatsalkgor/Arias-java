@@ -11,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.sqlite.SQLiteException;
 
 /**
@@ -184,10 +182,10 @@ public class DB {
         }
     }
 
-    protected float getHRA() {
+    protected float getHRA(int year) {
         try {
             Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("select * from hra");
+            ResultSet rs = s.executeQuery("select * from hra where year="+year);
             if (rs.next()) {
                 return rs.getFloat("rate");
             }
